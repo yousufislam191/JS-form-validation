@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Validation</h1>
+    <form action="#" method="post" onsubmit="return validationmethod()">
+        <table>
+            <tr>
+                <td><label for="firstName">First Name: </label></td>
+                <td><input type="text" id="inputfirstName">
+                    <span id="errorfirstName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="lastName">Last Name: </label></td>
+                <td><input type="text" id="inputlastName">
+                    <span id="errorlastName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="email">Email: </label></td>
+                <td><input type="email" id="inputemail">
+                    <span id="erroremail"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="pass">Password: </label></td>
+                <td><input type="password" id="inputpass">
+                    <span id="errorpass"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="conpass">Confirm Password: </label></td>
+                <td><input type="password" id="inputconpass">
+                    <span id="errorconpass"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="mobile">Mobile: </label></td>
+                <td><input type="text" id="inputmobile">
+                    <span id="errormobile"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" id="sub-btn" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function validationmethod() {
+            var nameRegex = /[a-zA-Z. ]/;
+            var emailRegex = /[a-z0-9._]+@[a-z]+[\.a-z]+/;
+            var passRegex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\S+$).{8,20}/;
+            var mobileRegex = /(\+88)?01[3-9]\d{8}/;
+
+            var fname = document.getElementById("inputfirstName").value;
+            var lname = document.getElementById("inputlastName").value;
+            var email = document.getElementById("inputemail").value;
+            var pass = document.getElementById("inputpass").value;
+            var confirmPass = document.getElementById("inputconpass").value;
+            var mobile = document.getElementById("inputmobile").value;
+
+            if(!fname.match(nameRegex)) {
+                document.getElementById("errorfirstName").innerHTML= "Invalid First Name";
+                return false;
+            }
+            else {
+                document.getElementById("errorfirstName").innerHTML= "";
+            }
+            if(!lname.match(nameRegex)) {
+                document.getElementById("errorlastName").innerHTML= "Invalid Last Name";
+                return false;
+            }
+            else {
+                document.getElementById("errorlastName").innerHTML= "";
+            }
+            if(!email.match(emailRegex)) {
+                document.getElementById("erroremail").innerHTML= "Email is invalid";
+                return false;
+            }
+            else {
+                document.getElementById("erroremail").innerHTML= "";
+            }
+            if(pass.length== 0) {
+                document.getElementById("errorpass").innerHTML= "invalid password..";
+                return false;
+            }
+            else if(pass.length<8) {
+                document.getElementById("errorpass").innerHTML= "Password must be 8 character..";
+                return false;
+            }
+            else if(!pass.match(passRegex)) {
+                document.getElementById("errorpass").innerHTML= "Password is not strong..";
+                return false;
+            }
+            else {
+                document.getElementById("errorpass").innerHTML= "";
+            }
+            if(pass!=confirmPass) {
+                document.getElementById("errorconpass").innerHTML= "Password & confirm password is not matched.";
+                return false;
+            }
+            else {
+                document.getElementById("errorconpass").innerHTML= "";
+            }
+            if(mobile.length == 0) {
+                document.getElementById("errormobile").innerHTML= "Invalid mobile number";
+                return false;
+            }
+            else if(!mobile.match(mobileRegex)) {
+                document.getElementById("errormobile").innerHTML= "Mobile number must be of BD number";
+                return false;
+            }
+            else {
+                document.getElementById("errormobile").innerHTML= "";
+                alert("Registration Successfully");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
